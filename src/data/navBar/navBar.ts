@@ -7,12 +7,8 @@ interface navConfig {
 export const navConfig: navConfig = {
     homeNav: [
         {
-            title: 'HOME',
+            title: 'Home',
             href: '/',
-        },
-        {
-            title: 'ABOUT',
-            href: '/about',
         },
         {
             title: 'Portfolio',
