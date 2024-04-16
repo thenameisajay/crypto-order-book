@@ -31,7 +31,7 @@ export default function MobileNav() {
     };
 
     return (
-        <div className="mb-2  flex w-full flex-col items-start justify-start border-b  border-stone-950 p-1">
+        <div className="mb-2  flex w-full flex-col items-start justify-start border-b  border-stone-950 p-1 focus-visible:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 md:hidden">
             <Sheet open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
                     <Button
