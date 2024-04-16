@@ -14,5 +14,9 @@ export const navConfig: navConfig = {
             title: 'Portfolio',
             href: '/portfolio',
         },
+        {
+            title: 'More',
+            href: '/more',
+        },
     ],
 };

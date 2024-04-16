@@ -21,11 +21,13 @@ export default function DesktopNav() {
     };
 
     return (
-        <div className="hidden h-16 w-full border-b border-stone-950    xl:block xl:py-10">
+        <div className="hidden h-16 w-full border-b border-stone-950    lg:block lg:p-10 ">
             <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between ">
-                <div className="justify-start p-2 text-base font-bold  xl:text-3xl">
-                    Logo
-                </div>
+                <Link href="/">
+                    <div className="justify-start p-2 text-base font-bold  xl:text-3xl">
+                        Logo
+                    </div>
+                </Link>
 
                 <div className="flex  items-center justify-end space-x-4   text-xl font-semibold">
                     {homeNav.map((item, index) => (
