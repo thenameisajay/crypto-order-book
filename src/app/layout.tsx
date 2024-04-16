@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import DesktopNav from '~/components/NavBar/DesktopNav';
-import MobileNav from '~/components/NavBar/MobileNav';
+import DevelopmentBanner from '~/components/development-banner/DevelopmentBanner';
+import DesktopNav from '~/components/nav-bar/DesktopNav';
+import MobileNav from '~/components/nav-bar/MobileNav';
 import { siteConfig } from '~/data/site/site';
 import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
@@ -27,6 +28,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`font-sans ${inter.className}`}>
+                <DevelopmentBanner />
                 <DesktopNav />
                 <MobileNav />
                 <TRPCReactProvider>{children}</TRPCReactProvider>
