@@ -1,4 +1,4 @@
-export interface MockData {
+export interface OrderBookData {
     timestamp: 'float';
     exchange: 'string';
     coin: 'string';
