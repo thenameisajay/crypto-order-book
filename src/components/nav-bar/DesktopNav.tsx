@@ -47,7 +47,7 @@ export default function DesktopNav() {
                 {
                     <Button
                         onClick={redirectToGithub}
-                        className="flex bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
+                        className="flex rounded-full bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
                     >
                         <GithubLogo size={32} className="mx-1 p-1" />
                         GITHUB
