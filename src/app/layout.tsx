@@ -1,5 +1,7 @@
 import { Inter } from 'next/font/google';
 
+import DesktopNav from '~/components/NavBar/DesktopNav';
+import MobileNav from '~/components/NavBar/MobileNav';
 import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
 
@@ -22,6 +24,8 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`font-sans ${inter.variable}`}>
+                <DesktopNav />
+                <MobileNav />
                 <TRPCReactProvider>{children}</TRPCReactProvider>
             </body>
         </html>
