@@ -36,4 +36,14 @@ export const orderBookRouter = createTRPCRouter({
 
         return orderBookArray;
     }),
+
+    getStorageOrderBookData: publicProcedure.query(async ({ ctx }) => {
+        const orderBookData = await ctx.db.orderBookData.findMany({
+            orderBy: {
+                timestamp: 'desc',
+            },
+        });
+
+        return orderBookData;
+    }),
 });
