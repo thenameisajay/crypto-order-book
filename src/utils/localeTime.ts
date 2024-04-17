@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
 
 export function getLocaleTime(timestamp: number): string {
-    return dayjs.unix(timestamp).format('DD-MM-YYYY, HH:mm:ss');
+    return dayjs.unix(timestamp).format('hh:mm:ss A');
 }

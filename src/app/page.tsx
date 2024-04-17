@@ -6,8 +6,8 @@ import { Warning } from '@phosphor-icons/react';
 import { api } from '~/trpc/react';
 import type { OrderBookData } from '~/types/interfaces/orderBookData';
 
-import DesktopTable from '~/components/home/DesktopTable';
-import MobileTable from '~/components/home/MobileTable';
+import DesktopTable from '~/components/order-table/DesktopTable';
+import MobileTable from '~/components/order-table/MobileTable';
 import Loading from '~/components/states/Loading';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
