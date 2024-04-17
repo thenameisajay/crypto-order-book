@@ -3,13 +3,14 @@
 import React from 'react';
 
 import { Warning } from '@phosphor-icons/react';
+import { api } from '~/trpc/react';
+import type { OrderBookData } from '~/types/interfaces/orderBookData';
+
 import DesktopTable from '~/components/home/DesktopTable';
 import MobileTable from '~/components/home/MobileTable';
 import Loading from '~/components/states/Loading';
 import { Button } from '~/components/ui/button';
 import { Card } from '~/components/ui/card';
-import { api } from '~/trpc/react';
-import type { OrderBookData } from '~/types/interfaces/orderBookData';
 
 const HomePageBanner = () => {
     const heading = 'Unlock the Power of Crypto Order Book Data';
