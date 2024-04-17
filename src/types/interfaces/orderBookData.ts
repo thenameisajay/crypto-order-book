@@ -1,19 +1,19 @@
 export interface OrderBookData {
-    timestamp: 'float';
-    exchange: 'string';
-    coin: 'string';
+    timestamp: number;
+    exchange: string;
+    coin: string;
     bids: [
-        ['float', 'float'],
-        ['float', 'float'],
-        ['float', 'float'],
-        ['float', 'float'],
-        ['float', 'float'],
+        [number, number],
+        [number, number],
+        [number, number],
+        [number, number],
+        [number, number],
     ];
     asks: [
-        ['float', 'float'],
-        ['float', 'float'],
-        ['float', 'float'],
-        ['float', 'float'],
-        ['float', 'float'],
+        [number, number],
+        [number, number],
+        [number, number],
+        [number, number],
+        [number, number],
     ];
 }

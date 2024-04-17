@@ -8,12 +8,13 @@ import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
 import { Books, GithubLogo, List } from '@phosphor-icons/react';
+import { cn } from '~/lib/utils';
+
 import { Button } from '~/components/ui/button';
 import { ScrollArea } from '~/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetTrigger } from '~/components/ui/sheet';
 import { navConfig } from '~/data/navBar/navBar';
 import { siteConfig } from '~/data/site/site';
-import { cn } from '~/lib/utils';
 
 const { homeNav } = navConfig;
 
@@ -65,7 +66,7 @@ export default function MobileNav() {
                                         </MobileLink>
                                     ),
                             )}
-                            <div className="absolute bottom-0  ">
+                            <div className="absolute  bottom-14  ">
                                 {
                                     <Button
                                         onClick={redirectToGithub}
