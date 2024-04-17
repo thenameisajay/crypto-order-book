@@ -9,10 +9,14 @@ import { getLocaleTime } from '~/utils/localeTime';
 
 import { Button } from '~/components/ui/button';
 
+//TODO : There is a duplicate key error in the table. Fix it later
+
 export default function DesktopTable({
+    tableStyleProps,
     orderBookData,
     refetch,
 }: {
+    tableStyleProps?: string;
     orderBookData: OrderBookData[];
     refetch: () => void;
 }) {
@@ -20,13 +24,13 @@ export default function DesktopTable({
         <div className="mt-10 w-full flex-col items-center justify-center overflow-x-clip  lg:hidden">
             {
                 <Table
-                    className="overflow-x-scroll"
+                    className={`overflow-x-scroll ${tableStyleProps} `}
                     size="small"
                     columns={[
                         {
                             title: 'Time Stamp',
                             dataIndex: 'timestamp',
-                            key: 'timestamp',
+
                             render: (timestamp: number) =>
                                 getLocaleTime(timestamp),
                             responsive: ['sm'],
@@ -35,19 +39,18 @@ export default function DesktopTable({
                         {
                             title: 'Exchange',
                             dataIndex: 'exchange',
-                            key: 'exchange',
+
                             width: '4',
                         },
                         {
                             title: 'Coin',
                             dataIndex: 'coin',
-                            key: 'coin',
                         },
 
                         {
                             title: 'Best Bid',
                             dataIndex: 'bids',
-                            key: 'bestBid',
+
                             render: (bids: [number, number][]) => (
                                 <Tag color="green">{bids[0]?.[0] ?? ''}</Tag>
                             ),
@@ -56,7 +59,7 @@ export default function DesktopTable({
                         {
                             title: 'Best Ask',
                             dataIndex: 'asks',
-                            key: 'bestAsk',
+
                             render: (asks: [number, number][]) => (
                                 <Tag color="red">{asks[0]?.[0] ?? ''}</Tag>
                             ),
@@ -66,14 +69,14 @@ export default function DesktopTable({
                         {
                             title: 'Last Updated',
                             dataIndex: 'timestamp',
-                            key: 'lastUpdated',
+
                             render: (timestamp: number) =>
                                 getLastUpdatedTime(timestamp),
                         },
                         {
                             title: 'Details',
                             dataIndex: 'details',
-                            key: 'details',
+
                             render: () => (
                                 <Button className="bg-[#105a37]   text-base font-semibold text-white hover:bg-black">
                                     <LinkIcon size={17} />
@@ -87,7 +90,7 @@ export default function DesktopTable({
             <div className="flex w-full flex-row items-center justify-center p-2">
                 <Button
                     variant={'secondary'}
-                    className="mx-2 bg-blue-500 text-white hover:bg-blue-600"
+                    className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
                     onClick={refetch}
                 >
                     Refresh
@@ -95,7 +98,7 @@ export default function DesktopTable({
                 <Link href="/history">
                     <Button
                         variant={'secondary'}
-                        className="mx-2 bg-blue-500 text-white hover:bg-blue-600"
+                        className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
                     >
                         History
                     </Button>

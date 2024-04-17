@@ -14,18 +14,8 @@ export const orderBookRouter = createTRPCRouter({
                 exchange: validatedData.exchange,
                 coin: validatedData.coin,
                 timestamp: validatedData.timestamp,
-                asks: {
-                    create: validatedData.asks.map((ask) => ({
-                        price: ask[0],
-                        size: ask[1],
-                    })),
-                },
-                bids: {
-                    create: validatedData.bids.map((bid) => ({
-                        price: bid[0],
-                        size: bid[1],
-                    })),
-                },
+                bids: JSON.stringify(validatedData.bids),
+                asks: JSON.stringify(validatedData.asks),
             },
         });
         console.log('Data stored in the db successfully');
@@ -42,8 +32,25 @@ export const orderBookRouter = createTRPCRouter({
             orderBy: {
                 timestamp: 'desc',
             },
+            select: {
+                id: true,
+                timestamp: true,
+                exchange: true,
+                coin: true,
+                asks: true,
+                bids: true,
+            },
         });
 
-        return orderBookData;
+        const formattedOrderBookData = orderBookData.map((item) => ({
+            id: item.id,
+            timestamp: item.timestamp,
+            exchange: item.exchange,
+            coin: item.coin,
+            asks: typeof item.asks === 'string' ? JSON.parse(item.asks) : [],
+            bids: typeof item.bids === 'string' ? JSON.parse(item.bids) : [],
+        }));
+
+        return formattedOrderBookData;
     }),
 });
