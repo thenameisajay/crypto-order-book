@@ -31,25 +31,6 @@ const HomePageBanner = () => {
     );
 };
 
-const OrderBookTable = ({
-    orderBookData,
-}: {
-    orderBookData: OrderBookData | undefined;
-}) => {
-    console.log('OrderBookData:', orderBookData);
-
-    if (!orderBookData)
-        return (
-            <div className=" absolute  bottom-7 flex w-full items-center justify-center text-center ">
-                <div className="flex flex-col items-center justify-center rounded-full bg-[#105a37] p-5 ">
-                    <Loading />
-                </div>
-            </div>
-        );
-
-    return <div className="flex flex-col items-center justify-center"></div>;
-};
-
 const ErrorDisplay = ({ refetch }: { refetch: () => void }) => {
     const errorMessage = 'Error fetching data, please try again later';
 
@@ -86,13 +67,14 @@ export default function Home() {
         isError,
     } = api.orderBook.getOrderBook.useQuery();
 
+    console.log('orderBookData', orderBookData);
+
     return (
         <>
             <HomePageBanner />
             {!isError ? (
-                <DesktopTable />
+                <DesktopTable orderBookData={orderBookData || []} />
             ) : (
-                // <OrderBookTable orderBookData={orderBookData ?? undefined} />
                 <ErrorDisplay refetch={refetch} />
             )}
         </>

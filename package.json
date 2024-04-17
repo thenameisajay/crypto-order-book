@@ -30,6 +30,7 @@
         "@trpc/react-query": "next",
         "@trpc/server": "next",
         "@types/ws": "^8.5.10",
+        "antd": "^5.16.2",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.0",
         "dayjs": "^1.11.10",
