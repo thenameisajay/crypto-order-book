@@ -40,6 +40,7 @@ export const orderBookRouter = createTRPCRouter({
                 asks: true,
                 bids: true,
             },
+            take: 10,
         });
 
         const formattedOrderBookData = orderBookData.map((item) => ({

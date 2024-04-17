@@ -21,7 +21,9 @@ export default function Home() {
         data: orderBookData,
         refetch,
         isError,
-    } = api.orderBook.getOrderBook.useQuery();
+    } = api.orderBook.getOrderBook.useQuery(undefined, {
+        refetchInterval: 5000,
+    });
 
     console.log('orderBookData', orderBookData);
 

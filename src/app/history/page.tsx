@@ -13,13 +13,20 @@ const heading: string = 'History';
 const description: string =
     'Explore a comprehensive record of order book data meticulously stored in our database. ';
 
-//TODO : invalidate the storage order book data query after the latest data is fetched
 export default function Page() {
-    const { refetch: latestDataRefetch } =
-        api.orderBook.getOrderBook.useQuery();
+    const utils = api.useUtils();
+
+    const { refetch: latestDataRefetch } = api.orderBook.getOrderBook.useQuery(
+        undefined,
+        {
+            refetchInterval: 5000,
+        },
+    );
 
     const { data: storageOrderBookData, isError } =
-        api.orderBook.getStorageOrderBookData.useQuery();
+        api.orderBook.getStorageOrderBookData.useQuery(undefined, {
+            refetchInterval: 5500,
+        });
 
     if (!storageOrderBookData) {
         return (
@@ -32,9 +39,7 @@ export default function Page() {
 
     const handleRefresh = async () => {
         await latestDataRefetch();
-        // await queryClient.invalidateQueries({
-        //     queryKey: ['getStorageOrderBookData'],
-        // });
+        await utils.orderBook.getStorageOrderBookData.invalidate();
     };
 
     return (

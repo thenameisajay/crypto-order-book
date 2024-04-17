@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
 
@@ -47,7 +48,10 @@ export default function RootLayout({
                 <DevelopmentBanner />
                 <DesktopNav />
                 <MobileNav />
-                <TRPCReactProvider>{children}</TRPCReactProvider>
+                <TRPCReactProvider>
+                    {children}
+                    <ReactQueryDevtools initialIsOpen={false} />
+                </TRPCReactProvider>
             </body>
         </html>
     );

@@ -26,6 +26,7 @@ export default function DesktopTable({
                 <Table
                     className={`overflow-x-scroll ${tableStyleProps} `}
                     size="small"
+                    pagination={{ hideOnSinglePage: true, pageSize: 4 }}
                     columns={[
                         {
                             title: 'Time Stamp',

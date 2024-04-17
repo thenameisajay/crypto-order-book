@@ -22,8 +22,9 @@ export default function DesktopTable({
         <div className="mt-10 hidden w-full flex-col items-center justify-center lg:flex">
             {
                 <Table
+                    size="small"
                     className={` ${tableStyleProps} `}
-                    pagination={{ pageSize: 5, hideOnSinglePage: true }}
+                    pagination={{ hideOnSinglePage: true, pageSize: 4 }}
                     columns={[
                         {
                             title: 'Time Stamp',
@@ -43,12 +44,28 @@ export default function DesktopTable({
                         {
                             title: 'Bids',
                             dataIndex: 'bids',
+                            width: '20%',
 
                             render: (bids: [number, number][]) => (
-                                <ul className="text-base">
+                                <ul className="flex flex-col items-center justify-center text-center text-base">
                                     {bids.map((bid, index) => (
-                                        <li key={`${bid[0]}-${index}`}>
-                                            {bid[0]} - {bid[1]}
+                                        <li
+                                            key={`${bid[0]}-${index}`}
+                                            className="my-1 flex items-center"
+                                        >
+                                            <Tag
+                                                color="blue"
+                                                className=" w-20 text-center"
+                                            >
+                                                {bid[0]}
+                                            </Tag>
+                                            <span className="mx-2">@</span>
+                                            <Tag
+                                                color="blue"
+                                                className=" w-20 text-center"
+                                            >
+                                                {bid[1]}
+                                            </Tag>
                                         </li>
                                     ))}
                                 </ul>
@@ -57,12 +74,28 @@ export default function DesktopTable({
                         {
                             title: 'Asks',
                             dataIndex: 'asks',
+                            width: '20%',
 
                             render: (asks: [number, number][]) => (
-                                <ul className="text-base">
+                                <ul className="flex flex-col items-center justify-center text-center text-base">
                                     {asks.map((ask, index) => (
-                                        <li key={`${ask[0]}-${index}`}>
-                                            {ask[0]} - {ask[1]}
+                                        <li
+                                            key={`${ask[0]}-${index}`}
+                                            className="my-1 flex items-center"
+                                        >
+                                            <Tag
+                                                color="blue"
+                                                className=" w-20 text-center"
+                                            >
+                                                {ask[0]}
+                                            </Tag>
+                                            <span className="mx-2">@</span>
+                                            <Tag
+                                                color="blue"
+                                                className=" w-20 text-center"
+                                            >
+                                                {ask[1]}
+                                            </Tag>
                                         </li>
                                     ))}
                                 </ul>
@@ -71,17 +104,46 @@ export default function DesktopTable({
                         {
                             title: 'Best Bid',
                             dataIndex: 'bids',
+                            width: '5%',
 
                             render: (bids: [number, number][]) => (
-                                <Tag color="green">{bids[0]?.[0] ?? ''}</Tag>
+                                <div className="flex items-center justify-center">
+                                    <Tag
+                                        color="green"
+                                        className=" w-20 text-center"
+                                    >
+                                        {bids[0]?.[0] ?? ''}
+                                    </Tag>
+                                    <span className="mx-2">@</span>
+                                    <Tag
+                                        color="green"
+                                        className=" w-20 text-center"
+                                    >
+                                        {bids[0]?.[1] ?? ''}
+                                    </Tag>
+                                </div>
                             ),
                         },
                         {
                             title: 'Best Ask',
                             dataIndex: 'asks',
-
+                            width: '5%',
                             render: (asks: [number, number][]) => (
-                                <Tag color="red">{asks[0]?.[0] ?? ''}</Tag>
+                                <div className="flex items-center justify-center">
+                                    <Tag
+                                        color="red"
+                                        className=" w-20 text-center"
+                                    >
+                                        {asks[0]?.[0] ?? ''}
+                                    </Tag>
+                                    <span className="mx-2">@</span>
+                                    <Tag
+                                        color="red"
+                                        className=" w-20 text-center"
+                                    >
+                                        {asks[0]?.[1] ?? ''}
+                                    </Tag>
+                                </div>
                             ),
                         },
                         {
