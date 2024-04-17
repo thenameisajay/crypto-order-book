@@ -46,6 +46,12 @@ export default function DesktopTable({
                         {
                             title: 'Coin',
                             dataIndex: 'coin',
+                            width: '5%',
+                            render: (coin: string) => (
+                                <div className="text-base font-bold">
+                                    {coin}
+                                </div>
+                            ),
                         },
 
                         {

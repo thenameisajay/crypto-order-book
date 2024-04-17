@@ -7,7 +7,7 @@ export default function ErrorDisplay({ refetch }: { refetch: () => void }) {
     const errorMessage = 'Error fetching data, please try again later';
 
     return (
-        <div className="absolute  bottom-10 flex  w-full flex-col items-center justify-center sm:bottom-44 md:bottom-60 2xl:bottom-80">
+        <div className="4  md:bottom-50 absolute  bottom-10 flex w-full flex-col items-center justify-center  sm:bottom-44">
             <Card className="mx-4 flex flex-col items-center justify-center">
                 <div className="mx-auto flex flex-col items-center px-4 text-center ">
                     <Warning
