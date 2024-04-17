@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import DevelopmentBanner from '~/components/development-banner/DevelopmentBanner';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import '~/styles/globals.css';
+import { TRPCReactProvider } from '~/trpc/react';
+
+import DevelopmentBanner from '~/components/banner/DBanner';
 import DesktopNav from '~/components/nav-bar/DesktopNav';
 import MobileNav from '~/components/nav-bar/MobileNav';
 import { siteConfig } from '~/data/site/site';
-import '~/styles/globals.css';
-import { TRPCReactProvider } from '~/trpc/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -46,7 +48,10 @@ export default function RootLayout({
                 <DevelopmentBanner />
                 <DesktopNav />
                 <MobileNav />
-                <TRPCReactProvider>{children}</TRPCReactProvider>
+                <TRPCReactProvider>
+                    {children}
+                    <ReactQueryDevtools initialIsOpen={false} />
+                </TRPCReactProvider>
             </body>
         </html>
     );

@@ -11,12 +11,12 @@ export const navConfig: navConfig = {
             href: '/',
         },
         {
-            title: 'Portfolio',
-            href: '/portfolio',
+            title: 'History',
+            href: '/history',
         },
         {
-            title: 'More',
-            href: '/more',
+            title: 'Watchlist',
+            href: '/watchlist',
         },
     ],
 };

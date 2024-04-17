@@ -13,7 +13,7 @@ const config = {
         '^(next/(.*)$)|^(next$)',
         '<THIRD_PARTY_MODULES>',
 
-        '^@/(components|data|config)/',
+        '^~/(components|data|config)/',
         '^[./]',
     ],
     importOrderSeparation: true,

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 
 import { SmileyXEyes } from '@phosphor-icons/react';
+
 import { Button } from '~/components/ui/button';
 
 export default function NotFoundComponent() {

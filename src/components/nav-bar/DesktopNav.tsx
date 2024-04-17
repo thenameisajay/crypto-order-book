@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Books, GithubLogo } from '@phosphor-icons/react';
+
 import { Button } from '~/components/ui/button';
 import { navConfig } from '~/data/navBar/navBar';
 

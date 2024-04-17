@@ -5,7 +5,12 @@ import React, { useEffect } from 'react';
 import { XSquare } from '@phosphor-icons/react';
 import dayjs from 'dayjs';
 import { useLocalStorage } from 'usehooks-ts';
+
 import { Button } from '~/components/ui/button';
+
+const developmentMessage = `This site is under development. Some features may not work as expected.`;
+
+const demoMessage = `This is a demo site. Do not make real decisions based on the data provided.`;
 
 export default function DevelopmentBanner() {
     const [isDismissed, setIsDismissed] = useLocalStorage(
@@ -46,8 +51,7 @@ export default function DevelopmentBanner() {
             <div className="flex w-full  items-center justify-center p-3 text-center md:p-4">
                 <div className="">
                     <p className="text-center text-xs font-medium md:text-base">
-                        This site is under development. Some features may not
-                        work as expected.
+                        {developmentMessage}
                     </p>
                 </div>
             </div>
