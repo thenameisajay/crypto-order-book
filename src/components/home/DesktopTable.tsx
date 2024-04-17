@@ -1,13 +1,19 @@
+import Link from 'next/link';
+
 import { Table, Tag } from 'antd';
 // import { orderBookData } from '~/data/fakeData/fakeData';
 import type { OrderBookData } from '~/types/interfaces/orderBookData';
 import { getLastUpdatedTime } from '~/utils/lastUpdated';
 import { getLocaleTime } from '~/utils/localeTime';
 
+import { Button } from '~/components/ui/button';
+
 export default function DesktopTable({
     orderBookData,
+    refetch,
 }: {
     orderBookData: OrderBookData[];
+    refetch: () => void;
 }) {
     return (
         <div className="mt-10 hidden w-full flex-col items-center justify-center lg:flex">
@@ -76,13 +82,13 @@ export default function DesktopTable({
                             ),
                         },
                         {
-                            title: 'Details',
+                            title: '',
                             dataIndex: 'details',
                             key: 'details',
                             render: () => (
-                                <button className="text-blue-500 underline">
+                                <Button className="bg-[#105a37]   text-base font-semibold text-white hover:bg-black">
                                     Details
-                                </button>
+                                </Button>
                             ),
                         },
                         {
@@ -97,66 +103,22 @@ export default function DesktopTable({
                 />
             }
             <div className="flex  w-60 flex-row p-2">
-                <button className="text-blue-500 underline">Refresh</button>
-                <button className="text-blue-500 underline">Portfolio</button>
+                <Button
+                    variant={'secondary'}
+                    className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
+                    onClick={refetch}
+                >
+                    Refresh
+                </Button>
+                <Link href="/history">
+                    <Button
+                        variant={'secondary'}
+                        className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
+                    >
+                        History
+                    </Button>
+                </Link>
             </div>
         </div>
     );
 }
-
-//   <table className="table">
-//                     <thead className="my-2">
-//                         <tr className="mx-1">
-//                             <th>TimeStamp</th>
-//                             <th>Exchange</th>
-//                             <th>Coin</th>
-//                             <th>Bids</th>
-//                             <th>Asks</th>
-//                             <th>Best Bid</th>
-//                             <th>Best Ask</th>
-//                             <th> Details</th>
-//                             <th>Last Updated</th>
-//                         </tr>
-//                     </thead>
-//                     <tbody>
-//                         {orderBookData.map((data: OrderBookData, index) => {
-//                             const timeStamp = getLocaleTime(data.timestamp);
-//                             const lastUpdated = getLastUpdatedTime(
-//                                 data.timestamp,
-//                             );
-//                             return (
-//                                 <tr key={index}>
-//                                     <td>{timeStamp}</td>
-//                                     <td>{data.exchange}</td>
-//                                     <td>{data.coin}</td>
-//                                     <td>
-//                                         <ul>
-//                                             {data.bids.map((bid) => (
-//                                                 <li key={bid[0]}>
-//                                                     {bid[0]} - {bid[1]}
-//                                                 </li>
-//                                             ))}
-//                                         </ul>
-//                                     </td>
-//                                     <td>
-//                                         <ul>
-//                                             {data.asks.map((ask) => (
-//                                                 <li key={ask[0]}>
-//                                                     {ask[0]} - {ask[1]}
-//                                                 </li>
-//                                             ))}
-//                                         </ul>
-//                                     </td>
-//                                     <td>{data.bids[0][0]}</td>
-//                                     <td>{data.asks[0][0]}</td>
-//                                     <td>
-//                                         <button className="text-blue-500 underline">
-//                                             Details
-//                                         </button>
-//                                     </td>
-//                                     <td>{lastUpdated}</td>
-//                                 </tr>
-//                             );
-//                         })}
-//                     </tbody>
-//                 </table>
