@@ -132,7 +132,7 @@ export default function Page() {
                     </div>
                     <DesktopTable
                         showDetails={false}
-                        showHistory={false}
+                        showTicker={false}
                         showRefresh={true}
                         tableStyleProps={' w-11/12  mx-auto'}
                         orderBookData={searchTokenLatestData}
@@ -157,7 +157,7 @@ export default function Page() {
                     </div>
                     <DesktopTable
                         showDetails={false}
-                        showHistory={false}
+                        showTicker={false}
                         showRefresh={true}
                         tableStyleProps={' w-11/12  mx-auto'}
                         orderBookData={historyData || []}

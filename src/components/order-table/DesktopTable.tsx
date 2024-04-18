@@ -15,14 +15,14 @@ export default function DesktopTable({
     orderBookData,
     refetch,
     showDetails = true,
-    showHistory = true,
+    showTicker = true,
     showRefresh = true,
 }: {
     tableStyleProps?: string;
     orderBookData: OrderBookData[];
     refetch: () => void;
     showDetails?: boolean;
-    showHistory?: boolean;
+    showTicker?: boolean;
     showRefresh?: boolean;
 }) {
     return (
@@ -199,7 +199,7 @@ export default function DesktopTable({
                         Refresh
                     </Button>
                 )}
-                {showHistory && (
+                {showTicker && (
                     <Link href="/stock-ticker">
                         <Button
                             variant={'secondary'}
