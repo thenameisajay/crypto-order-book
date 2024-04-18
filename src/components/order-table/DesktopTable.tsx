@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Link from 'next/link';
 
+import { Binoculars } from '@phosphor-icons/react';
 import { Table, Tag } from 'antd';
 import { Modal } from 'antd';
 // import { orderBookData } from '~/data/fakeData/fakeData';
@@ -187,9 +188,16 @@ export default function DesktopTable({
                                         onOk={handleOk}
                                         onCancel={handleCancel}
                                     >
-                                        <p>Some contents...</p>
-                                        <p>Some contents...</p>
-                                        <p>Some contents...</p>
+                                        <div className="flex w-full  flex-row justify-end">
+                                            <Button className="flex  flex-row  rounded-full bg-green-500 hover:bg-green-600">
+                                                <Binoculars
+                                                    size={25}
+                                                    weight="bold"
+                                                    className="mx-1"
+                                                />
+                                                <span>Add to Watchlist</span>
+                                            </Button>
+                                        </div>
                                     </Modal>
                                 </>
                             ),
