@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { usePathname } from 'next/navigation';
 
 import { Binoculars, Trash } from '@phosphor-icons/react';
+import { useLocalStorage } from 'usehooks-ts';
 import { api } from '~/trpc/react';
 import { type OrderBookData } from '~/types/interfaces/orderBookData';
 
@@ -18,6 +19,11 @@ import { Button } from '~/components/ui/button';
 import { getTokenDescription } from '~/data/token/tokenData';
 
 export default function Page() {
+    const [watchlist, setWatchlist] = useLocalStorage<string[]>(
+        'userSelectedWatchList',
+        [],
+    );
+
     const pathname = usePathname();
 
     const utils = api.useUtils();
@@ -55,12 +61,18 @@ export default function Page() {
 
     console.log(tokenOrderData);
 
-    const isInWatchlist = true;
+    const isInWatchlist = watchlist.includes(searchTerm);
 
     const isValid = !isHistoryError || tokenOrderData;
 
     const handleWatchlistAction = () => {
-        toast.success('Added to watchlist');
+        if (isInWatchlist) {
+            setWatchlist(watchlist.filter((item) => item !== searchTerm));
+            toast.success('Removed from watchlist');
+        } else {
+            setWatchlist([...watchlist, searchTerm]);
+            toast.success('Added to watchlist');
+        }
     };
 
     const handleRefresh = async () => {
