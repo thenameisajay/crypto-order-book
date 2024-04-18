@@ -48,11 +48,13 @@ export default function Page() {
             {!isError ? (
                 <>
                     <DesktopTable
+                        showDetails={true}
                         tableStyleProps={' w-11/12  mx-auto'}
                         orderBookData={storageOrderBookData || []}
                         refetch={handleRefresh}
                     />
                     <MobileTable
+                        showDetails={true}
                         orderBookData={storageOrderBookData || []}
                         refetch={handleRefresh}
                     />

@@ -42,10 +42,12 @@ export default function Home() {
             {!isError ? (
                 <>
                     <DesktopTable
+                        showDetails={true}
                         orderBookData={(orderBookData as OrderBookData[]) || []}
                         refetch={refetch}
                     />
                     <MobileTable
+                        showDetails={true}
                         orderBookData={(orderBookData as OrderBookData[]) || []}
                         refetch={refetch}
                     />

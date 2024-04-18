@@ -2,7 +2,6 @@ import React from 'react';
 
 import Link from 'next/link';
 
-import { Binoculars } from '@phosphor-icons/react';
 import { Table, Tag } from 'antd';
 // import { orderBookData } from '~/data/fakeData/fakeData';
 import type { OrderBookData } from '~/types/interfaces/orderBookData';
@@ -16,10 +15,16 @@ export default function DesktopTable({
     tableStyleProps,
     orderBookData,
     refetch,
+    showDetails = true,
+    showHistory = true,
+    showRefresh = true,
 }: {
     tableStyleProps?: string;
     orderBookData: OrderBookData[];
     refetch: () => void;
+    showDetails?: boolean;
+    showHistory?: boolean;
+    showRefresh?: boolean;
 }) {
     return (
         <div className="mt-10 hidden w-full flex-col items-center justify-center lg:flex">
@@ -163,11 +168,13 @@ export default function DesktopTable({
                                 const hrefLink = `${coin.split('/')[0]}`;
                                 return (
                                     <>
-                                        <Link href={`/${hrefLink}`}>
-                                            <Button className="bg-[#105a37]   text-base font-semibold text-white hover:bg-black">
-                                                Details
-                                            </Button>
-                                        </Link>
+                                        {showDetails && (
+                                            <Link href={`/${hrefLink}`}>
+                                                <Button className="bg-[#105a37]   text-base font-semibold text-white hover:bg-black">
+                                                    Details
+                                                </Button>
+                                            </Link>
+                                        )}
                                     </>
                                 );
                             },
@@ -184,21 +191,25 @@ export default function DesktopTable({
                 />
             }
             <div className="flex  w-60 flex-row p-2">
-                <Button
-                    variant={'secondary'}
-                    className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
-                    onClick={refetch}
-                >
-                    Refresh
-                </Button>
-                <Link href="/history">
+                {showRefresh && (
                     <Button
                         variant={'secondary'}
                         className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
+                        onClick={refetch}
                     >
-                        History
+                        Refresh
                     </Button>
-                </Link>
+                )}
+                {showHistory && (
+                    <Link href="/history">
+                        <Button
+                            variant={'secondary'}
+                            className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
+                        >
+                            History
+                        </Button>
+                    </Link>
+                )}
             </div>
         </div>
     );
