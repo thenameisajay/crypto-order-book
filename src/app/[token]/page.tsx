@@ -34,14 +34,14 @@ export default function Page() {
         getTokenDescription(searchTerm) || 'No description found';
 
     const {
-        data: latestDataFromSocket,
+        data: liveData,
         refetch: latestDataRefetch,
         isError: isLiveError,
     } = api.orderBook.getOrderBook.useQuery(undefined, {
         refetchInterval: 500,
     });
 
-    const { data: tokenOrderData, isError: isHistoryError } =
+    const { data: historyData, isError: isHistoryError } =
         api.orderBook.getOrderBookDataByToken.useQuery(
             { token: searchTerm },
             {
@@ -49,21 +49,17 @@ export default function Page() {
             },
         );
 
-    const searchTokenLatestData = latestDataFromSocket
-        ? (latestDataFromSocket.filter(
+    const latestHistoryData = historyData?.[0] ? [historyData[0]] : [];
+
+    const searchTokenLatestData = liveData
+        ? (liveData.filter(
               (data) => data.coin === searchTerm,
           ) as OrderBookData[])
-        : [];
-
-    console.log('Search Term Data:', searchTokenLatestData);
-
-    console.log(searchTerm);
-
-    console.log(tokenOrderData);
+        : latestHistoryData;
 
     const isInWatchlist = watchlist.includes(searchTerm);
 
-    const isValid = !isHistoryError || tokenOrderData;
+    const isValid = !isHistoryError || historyData;
 
     const handleWatchlistAction = () => {
         if (isInWatchlist) {
@@ -80,7 +76,7 @@ export default function Page() {
         await utils.orderBook.getStorageOrderBookData.invalidate();
     };
 
-    if (!tokenOrderData) {
+    if (!historyData) {
         return (
             <>
                 <HeadBanner heading={searchTerm} description={description} />
@@ -166,12 +162,12 @@ export default function Page() {
                         showHistory={false}
                         showRefresh={true}
                         tableStyleProps={' w-11/12  mx-auto'}
-                        orderBookData={tokenOrderData || []}
+                        orderBookData={historyData || []}
                         refetch={handleRefresh}
                     />
                     <MobileTable
                         showDetails={false}
-                        orderBookData={tokenOrderData || []}
+                        orderBookData={historyData || []}
                         refetch={handleRefresh}
                     />
                 </>
