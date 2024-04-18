@@ -59,8 +59,6 @@ export default function Page() {
 
     const isInWatchlist = watchlist.includes(searchTerm);
 
-    const isValid = !isHistoryError || historyData;
-
     const handleWatchlistAction = () => {
         if (isInWatchlist) {
             setWatchlist(watchlist.filter((item) => item !== searchTerm));
@@ -91,7 +89,7 @@ export default function Page() {
                 <HeadBanner heading={searchTerm} description={description} />
                 <Button
                     className="mt-4 flex  w-44 justify-center  rounded-full bg-green-500 text-white hover:bg-green-900 md:mt-6 md:w-52"
-                    disabled={!isValid}
+                    disabled={isHistoryError}
                     onClick={handleWatchlistAction}
                 >
                     {isInWatchlist ? (
