@@ -8,10 +8,10 @@ import LoadingDisplay from '~/components/loading-display/LoadingDisplay';
 import DesktopTable from '~/components/order-table/DesktopTable';
 import MobileTable from '~/components/order-table/MobileTable';
 
-const heading: string = 'History';
+const heading: string = 'Stock Ticker';
 
 const description: string =
-    'Explore a comprehensive record of order book data meticulously stored in our database. ';
+    'Monitor real-time updates and detailed analytics of stock market activity.';
 
 export default function Page() {
     const utils = api.useUtils();

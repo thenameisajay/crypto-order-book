@@ -200,12 +200,12 @@ export default function DesktopTable({
                     </Button>
                 )}
                 {showHistory && (
-                    <Link href="/history">
+                    <Link href="/stock-ticker">
                         <Button
                             variant={'secondary'}
                             className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
                         >
-                            History
+                            Ticker
                         </Button>
                     </Link>
                 )}
