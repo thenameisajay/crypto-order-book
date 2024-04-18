@@ -19,13 +19,13 @@ export default function Page() {
     const { refetch: latestDataRefetch } = api.orderBook.getOrderBook.useQuery(
         undefined,
         {
-            refetchInterval: 1000,
+            refetchInterval: 500,
         },
     );
 
     const { data: storageOrderBookData, isError } =
         api.orderBook.getStorageOrderBookData.useQuery(undefined, {
-            refetchInterval: 1010,
+            refetchInterval: 510,
         });
 
     if (!storageOrderBookData) {
