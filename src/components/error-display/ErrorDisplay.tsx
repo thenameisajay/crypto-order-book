@@ -16,9 +16,9 @@ export default function ErrorDisplay({ refetch }: { refetch: () => void }) {
                         weight="bold"
                         color="#ec0909"
                     />
-                    <h1 className="text-base font-semibold  text-red-500 md:text-2xl">
+                    <h3 className="text-base font-semibold  text-red-500 md:text-2xl">
                         {errorMessage}
-                    </h1>
+                    </h3>
                 </div>
                 <Button
                     onClick={refetch}
