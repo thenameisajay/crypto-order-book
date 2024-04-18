@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Link from 'next/link';
 
 import { Binoculars } from '@phosphor-icons/react';
 import { Table, Tag } from 'antd';
-import { Modal } from 'antd';
 // import { orderBookData } from '~/data/fakeData/fakeData';
 import type { OrderBookData } from '~/types/interfaces/orderBookData';
 import { getLastUpdatedTime } from '~/utils/lastUpdated';
@@ -22,20 +21,6 @@ export default function DesktopTable({
     orderBookData: OrderBookData[];
     refetch: () => void;
 }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-
     return (
         <div className="mt-10 hidden w-full flex-col items-center justify-center lg:flex">
             {
