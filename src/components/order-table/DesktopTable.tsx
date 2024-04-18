@@ -172,35 +172,20 @@ export default function DesktopTable({
                         },
                         {
                             title: '',
-                            dataIndex: 'details',
+                            dataIndex: 'coin',
 
-                            render: () => (
-                                <>
-                                    <Button
-                                        className="bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
-                                        onClick={showModal}
-                                    >
-                                        Details
-                                    </Button>
-                                    <Modal
-                                        title="Basic Modal"
-                                        open={isModalOpen}
-                                        onOk={handleOk}
-                                        onCancel={handleCancel}
-                                    >
-                                        <div className="flex w-full  flex-row justify-end">
-                                            <Button className="flex  flex-row  rounded-full bg-green-500 hover:bg-green-600">
-                                                <Binoculars
-                                                    size={25}
-                                                    weight="bold"
-                                                    className="mx-1"
-                                                />
-                                                <span>Add to Watchlist</span>
+                            render: (coin: string) => {
+                                const hrefLink = `${coin.split('/')[0]}`;
+                                return (
+                                    <>
+                                        <Link href={`/${hrefLink}`}>
+                                            <Button className="bg-[#105a37]   text-base font-semibold text-white hover:bg-black">
+                                                Details
                                             </Button>
-                                        </div>
-                                    </Modal>
-                                </>
-                            ),
+                                        </Link>
+                                    </>
+                                );
+                            },
                         },
                         {
                             title: 'Last Updated',
