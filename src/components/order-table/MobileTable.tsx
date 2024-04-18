@@ -36,7 +36,7 @@ export default function MobileTable({
 
                             render: (timestamp: number) =>
                                 getLocaleTime(timestamp),
-                            responsive: ['sm'],
+
                             width: '10',
                         },
                         {
@@ -78,7 +78,7 @@ export default function MobileTable({
                         {
                             title: 'Last Updated',
                             dataIndex: 'timestamp',
-
+                            responsive: ['sm'],
                             render: (timestamp: number) =>
                                 getLastUpdatedTime(timestamp),
                         },
