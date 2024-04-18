@@ -10,7 +10,6 @@ import { getLocaleTime } from '~/utils/localeTime';
 
 import { Button } from '~/components/ui/button';
 
-//TODO : There is a duplicate key error in the table. Fix it later
 export default function DesktopTable({
     tableStyleProps,
     orderBookData,
