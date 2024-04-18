@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Link from 'next/link';
 
-import { Binoculars } from '@phosphor-icons/react';
 import { Table, Tag } from 'antd';
-import { Modal } from 'antd';
 // import { orderBookData } from '~/data/fakeData/fakeData';
 import type { OrderBookData } from '~/types/interfaces/orderBookData';
 import { getLastUpdatedTime } from '~/utils/lastUpdated';
@@ -12,30 +10,21 @@ import { getLocaleTime } from '~/utils/localeTime';
 
 import { Button } from '~/components/ui/button';
 
-//TODO : There is a duplicate key error in the table. Fix it later
 export default function DesktopTable({
     tableStyleProps,
     orderBookData,
     refetch,
+    showDetails = true,
+    showTicker = true,
+    showRefresh = true,
 }: {
     tableStyleProps?: string;
     orderBookData: OrderBookData[];
     refetch: () => void;
+    showDetails?: boolean;
+    showTicker?: boolean;
+    showRefresh?: boolean;
 }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-
     return (
         <div className="mt-10 hidden w-full flex-col items-center justify-center lg:flex">
             {
@@ -172,35 +161,22 @@ export default function DesktopTable({
                         },
                         {
                             title: '',
-                            dataIndex: 'details',
+                            dataIndex: 'coin',
 
-                            render: () => (
-                                <>
-                                    <Button
-                                        className="bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
-                                        onClick={showModal}
-                                    >
-                                        Details
-                                    </Button>
-                                    <Modal
-                                        title="Basic Modal"
-                                        open={isModalOpen}
-                                        onOk={handleOk}
-                                        onCancel={handleCancel}
-                                    >
-                                        <div className="flex w-full  flex-row justify-end">
-                                            <Button className="flex  flex-row  rounded-full bg-green-500 hover:bg-green-600">
-                                                <Binoculars
-                                                    size={25}
-                                                    weight="bold"
-                                                    className="mx-1"
-                                                />
-                                                <span>Add to Watchlist</span>
-                                            </Button>
-                                        </div>
-                                    </Modal>
-                                </>
-                            ),
+                            render: (coin: string) => {
+                                const hrefLink = `${coin.split('/')[0]}`;
+                                return (
+                                    <>
+                                        {showDetails && (
+                                            <Link href={`/${hrefLink}`}>
+                                                <Button className="bg-[#105a37]   text-base font-semibold text-white hover:bg-black">
+                                                    Details
+                                                </Button>
+                                            </Link>
+                                        )}
+                                    </>
+                                );
+                            },
                         },
                         {
                             title: 'Last Updated',
@@ -214,21 +190,25 @@ export default function DesktopTable({
                 />
             }
             <div className="flex  w-60 flex-row p-2">
-                <Button
-                    variant={'secondary'}
-                    className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
-                    onClick={refetch}
-                >
-                    Refresh
-                </Button>
-                <Link href="/history">
+                {showRefresh && (
                     <Button
                         variant={'secondary'}
                         className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
+                        onClick={refetch}
                     >
-                        History
+                        Refresh
                     </Button>
-                </Link>
+                )}
+                {showTicker && (
+                    <Link href="/stock-ticker">
+                        <Button
+                            variant={'secondary'}
+                            className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
+                        >
+                            Ticker
+                        </Button>
+                    </Link>
+                )}
             </div>
         </div>
     );

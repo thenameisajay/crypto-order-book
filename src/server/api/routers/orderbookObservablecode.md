@@ -4,28 +4,42 @@ import { OrderBookSchema } from '~/types/schemas/OrderBookSchema';
 import { TokenSchema } from '~/types/schemas/Token';
 
 export const orderBookRouter = createTRPCRouter({
-    getOrderBook: publicProcedure.query(async ({ ctx }) => {
-        const orderBookData = await connectToWebSocket();
+getOrderBook: publicProcedure.query(async ({ ctx }) => {
+const orderBookDataObservable = await connectToWebSocket();
 
-        const validatedData = OrderBookSchema.parse(orderBookData);
+        orderBookDataObservable.subscribe({
+            next: async (orderBookData) => {
+                console.log(orderBookData);
 
-        // Store the data in the db
-        await ctx.db.orderBookData.create({
-            data: {
-                exchange: validatedData.exchange,
-                coin: validatedData.coin,
-                timestamp: validatedData.timestamp,
-                bids: JSON.stringify(validatedData.bids),
-                asks: JSON.stringify(validatedData.asks),
+                console.log('Data received from the WebSocket', orderBookData);
+
+                const validatedData = OrderBookSchema.parse(orderBookData);
+
+                // Store the data in the db
+                void ctx.db.orderBookData.create({
+                    data: {
+                        exchange: validatedData.exchange,
+                        coin: validatedData.coin,
+                        timestamp: validatedData.timestamp,
+                        bids: JSON.stringify(validatedData.bids),
+                        asks: JSON.stringify(validatedData.asks),
+                    },
+                });
+                console.log('Data stored in the db successfully');
+
+                const orderBookArray = [];
+
+                orderBookArray.push(validatedData);
+
+                return orderBookArray;
+            },
+            error: (error) => {
+                console.error('Error:', error);
+            },
+            complete: () => {
+                console.log('WebSocket connection closed');
             },
         });
-        console.log('Data stored in the db successfully');
-
-        const orderBookArray = [];
-
-        orderBookArray.push(validatedData);
-
-        return orderBookArray;
     }),
 
     getStorageOrderBookData: publicProcedure.query(async ({ ctx }) => {
@@ -90,4 +104,5 @@ export const orderBookRouter = createTRPCRouter({
 
             return formattedOrderBookData;
         }),
+
 });

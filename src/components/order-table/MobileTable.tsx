@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { Link as LinkIcon } from '@phosphor-icons/react';
+import { Browsers } from '@phosphor-icons/react';
 import { Table, Tag } from 'antd';
 // import { orderBookData } from '~/data/fakeData/fakeData';
 import type { OrderBookData } from '~/types/interfaces/orderBookData';
@@ -9,13 +9,13 @@ import { getLocaleTime } from '~/utils/localeTime';
 
 import { Button } from '~/components/ui/button';
 
-//TODO : There is a duplicate key error in the table. Fix it later
-
-export default function DesktopTable({
+export default function MobileTable({
+    showDetails = true,
     tableStyleProps,
     orderBookData,
     refetch,
 }: {
+    showDetails: boolean;
     tableStyleProps?: string;
     orderBookData: OrderBookData[];
     refetch: () => void;
@@ -34,7 +34,7 @@ export default function DesktopTable({
 
                             render: (timestamp: number) =>
                                 getLocaleTime(timestamp),
-                            responsive: ['sm'],
+
                             width: '10',
                         },
                         {
@@ -76,19 +76,25 @@ export default function DesktopTable({
                         {
                             title: 'Last Updated',
                             dataIndex: 'timestamp',
-
+                            responsive: ['sm'],
                             render: (timestamp: number) =>
                                 getLastUpdatedTime(timestamp),
                         },
                         {
                             title: 'Details',
-                            dataIndex: 'details',
-
-                            render: () => (
-                                <Button className="bg-[#105a37]   text-base font-semibold text-white hover:bg-black">
-                                    <LinkIcon size={17} />
-                                </Button>
-                            ),
+                            dataIndex: 'coin',
+                            render: (coin: string) => {
+                                const hrefLink = `${coin.split('/')[0]}`;
+                                return (
+                                    <>
+                                        {showDetails && (
+                                            <Link href={`/${hrefLink}`}>
+                                                <Browsers size={17} />
+                                            </Link>
+                                        )}
+                                    </>
+                                );
+                            },
                         },
                     ]}
                     dataSource={orderBookData}
@@ -102,12 +108,12 @@ export default function DesktopTable({
                 >
                     Refresh
                 </Button>
-                <Link href="/history">
+                <Link href="/stock-ticker">
                     <Button
                         variant={'secondary'}
                         className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
                     >
-                        History
+                        Ticker
                     </Button>
                 </Link>
             </div>
