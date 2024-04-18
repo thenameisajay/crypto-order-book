@@ -22,7 +22,7 @@ export default function Home() {
         refetch,
         isError,
     } = api.orderBook.getOrderBook.useQuery(undefined, {
-        refetchInterval: 5000,
+        refetchInterval: 1000,
     });
 
     console.log('orderBookData', orderBookData);

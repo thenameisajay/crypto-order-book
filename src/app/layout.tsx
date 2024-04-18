@@ -1,3 +1,5 @@
+import { Toaster } from 'react-hot-toast';
+
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
@@ -45,6 +47,7 @@ export default function RootLayout({
             </head>
 
             <body className={`font-sans ${inter.className}`}>
+                <Toaster />
                 <DevelopmentBanner />
                 <DesktopNav />
                 <MobileNav />

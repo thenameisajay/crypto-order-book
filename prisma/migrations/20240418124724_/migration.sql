@@ -11,11 +11,11 @@ CREATE TABLE "Post" (
 -- CreateTable
 CREATE TABLE "OrderBookData" (
     "id" SERIAL NOT NULL,
-    "timestamp" BIGINT NOT NULL,
+    "timestamp" DOUBLE PRECISION NOT NULL,
     "exchange" TEXT NOT NULL,
     "coin" TEXT NOT NULL,
-    "bids" JSONB NOT NULL,
-    "asks" JSONB NOT NULL,
+    "bids" TEXT NOT NULL,
+    "asks" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
