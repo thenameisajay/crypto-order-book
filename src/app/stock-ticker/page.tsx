@@ -5,14 +5,17 @@ import { api } from '~/trpc/react';
 import ErrorDisplay from '~/components/error-display/ErrorDisplay';
 import HeadBanner from '~/components/head-banner/HeadBanner';
 import LoadingDisplay from '~/components/loading-display/LoadingDisplay';
-import DesktopTable from '~/components/order-table/DesktopTable';
-import MobileTable from '~/components/order-table/MobileTable';
+import DuoTable from '~/components/order-table/DuoTable';
 
 const heading: string = 'Stock Ticker';
 
 const description: string =
     'Monitor real-time updates and detailed analytics of stock market activity.';
 
+/**
+ * This is the main component for the Stock Ticker page.
+ * It fetches and displays real-time updates and detailed analytics of stock market activity.
+ */
 export default function Page() {
     const utils = api.useUtils();
 
@@ -28,7 +31,7 @@ export default function Page() {
             refetchInterval: 510,
         });
 
-    if (!storageOrderBookData) {
+    if (!storageOrderBookData && !isError) {
         return (
             <>
                 <HeadBanner heading={heading} description={description} />
@@ -46,19 +49,11 @@ export default function Page() {
         <>
             <HeadBanner heading={heading} description={description} />
             {!isError ? (
-                <>
-                    <DesktopTable
-                        showDetails={true}
-                        tableStyleProps={' w-11/12  mx-auto'}
-                        orderBookData={storageOrderBookData || []}
-                        refetch={handleRefresh}
-                    />
-                    <MobileTable
-                        showDetails={true}
-                        orderBookData={storageOrderBookData || []}
-                        refetch={handleRefresh}
-                    />
-                </>
+                <DuoTable
+                    orderBookData={storageOrderBookData || []}
+                    refetch={handleRefresh}
+                    showDetails={true}
+                />
             ) : (
                 <ErrorDisplay refetch={handleRefresh} />
             )}

@@ -6,6 +6,17 @@ import { SmileyXEyes } from '@phosphor-icons/react';
 
 import { Button } from '~/components/ui/button';
 
+/**
+ * Renders the 404 (Not Found) page.
+ *
+ * The component is centered both vertically and horizontally, and the text color is set to a specific shade of green (`#105a37`).
+ *
+ * The content is divided into two parts:
+ * 1. The first part displays the `SmileyXEyes` icon and a message indicating that the page was not found.
+ * 2. The second part displays a "Home" button that links to the home page using the `Link` component.
+ *
+ * @returns {JSX.Element} The rendered 404 (Not Found) page.
+ */
 export default function NotFoundComponent() {
     return (
         <div className="flex min-h-[100vh] flex-col items-center justify-center space-y-4 text-[#105a37]">

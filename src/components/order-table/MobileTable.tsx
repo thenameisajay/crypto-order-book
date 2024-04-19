@@ -58,18 +58,70 @@ export default function MobileTable({
                             title: 'Best Bid',
                             dataIndex: 'bids',
 
-                            render: (bids: [number, number][]) => (
-                                <Tag color="green">{bids[0]?.[0] ?? ''}</Tag>
-                            ),
+                            render: (bids: [number, number][]) => {
+                                return (
+                                    <div className=" flex  flex-col items-center justify-center">
+                                        <div className="mb-2  flex w-36 justify-between">
+                                            <span className="text-base font-bold">
+                                                QTY
+                                            </span>
+                                            <span className="text-base font-bold">
+                                                Price
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center justify-center">
+                                            <Tag
+                                                color="green"
+                                                className=" w-20 text-center"
+                                            >
+                                                {bids[0]?.[0] ?? ''}
+                                            </Tag>
+                                            <span className="mx-2">@</span>
+                                            <Tag
+                                                color="green"
+                                                className=" w-20 text-center"
+                                            >
+                                                {bids[0]?.[1] ?? ''}
+                                            </Tag>
+                                        </div>
+                                    </div>
+                                );
+                            },
                             responsive: ['sm'],
                         },
                         {
                             title: 'Best Ask',
                             dataIndex: 'asks',
 
-                            render: (asks: [number, number][]) => (
-                                <Tag color="red">{asks[0]?.[0] ?? ''}</Tag>
-                            ),
+                            render: (asks: [number, number][]) => {
+                                return (
+                                    <div className=" flex  flex-col items-center justify-center">
+                                        <div className="mb-2  flex w-36 justify-between">
+                                            <span className="text-base font-bold">
+                                                QTY
+                                            </span>
+                                            <span className="text-base font-bold">
+                                                Price
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center justify-center">
+                                            <Tag
+                                                color="red"
+                                                className=" w-20 text-center"
+                                            >
+                                                {asks[0]?.[0] ?? ''}
+                                            </Tag>
+                                            <span className="mx-2">@</span>
+                                            <Tag
+                                                color="red"
+                                                className=" w-20 text-center"
+                                            >
+                                                {asks[0]?.[1] ?? ''}
+                                            </Tag>
+                                        </div>
+                                    </div>
+                                );
+                            },
                             responsive: ['sm'],
                         },
 
@@ -84,7 +136,7 @@ export default function MobileTable({
                             title: 'Details',
                             dataIndex: 'coin',
                             render: (coin: string) => {
-                                const hrefLink = `${coin.split('/')[0]}`;
+                                const hrefLink = `currency/${coin.split('/')[0]}`;
                                 return (
                                     <>
                                         {showDetails && (

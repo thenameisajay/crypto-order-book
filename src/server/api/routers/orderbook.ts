@@ -3,7 +3,20 @@ import { connectToWebSocket } from '~/server/trpc/ws';
 import { OrderBookSchema } from '~/types/schemas/OrderBookSchema';
 import { TokenSchema } from '~/types/schemas/Token';
 
+/**
+ * This is a tRPC (TypeScript-RPC) router that handles the order book data for a cryptocurrency exchange.
+ * It provides three main functionalities:
+ * 1. Fetching the latest order book data from a WebSocket connection, validating it, and storing it in the database.
+ * 2. Retrieving the 10 most recent order book data entries from the database.
+ * 3. Retrieving the 10 most recent order book data entries for a specific token from the database.
+ */
+
 export const orderBookRouter = createTRPCRouter({
+    /**
+     * Fetches the latest order book data from a WebSocket connection, validates it, and stores it in the database.
+     * @param ctx - The tRPC context, which provides access to the database.
+     * @returns An array containing the latest order book data.
+     */
     getOrderBook: publicProcedure.query(async ({ ctx }) => {
         const orderBookData = await connectToWebSocket();
 
@@ -28,6 +41,11 @@ export const orderBookRouter = createTRPCRouter({
         return orderBookArray;
     }),
 
+    /**
+     * Retrieves the 10 most recent order book data entries from the database.
+     * @param ctx - The tRPC context, which provides access to the database.
+     * @returns An array of the 10 most recent order book data entries.
+     */
     getStorageOrderBookData: publicProcedure.query(async ({ ctx }) => {
         const orderBookData = await ctx.db.orderBookData.findMany({
             orderBy: {
@@ -55,6 +73,13 @@ export const orderBookRouter = createTRPCRouter({
 
         return formattedOrderBookData;
     }),
+
+    /**
+     * Retrieves the 10 most recent order book data entries for a specific token from the database.
+     * @param input - The token for which to retrieve the order book data.
+     * @param ctx - The tRPC context, which provides access to the database.
+     * @returns An array of the 10 most recent order book data entries for the specified token.
+     */
 
     getOrderBookDataByToken: publicProcedure
         .input(TokenSchema)

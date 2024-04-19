@@ -3,7 +3,7 @@
 import React from 'react';
 import toast from 'react-hot-toast';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Binoculars, Trash } from '@phosphor-icons/react';
 import { useLocalStorage } from 'usehooks-ts';
@@ -13,32 +13,44 @@ import { type OrderBookData } from '~/types/interfaces/orderBookData';
 import ErrorDisplay from '~/components/error-display/ErrorDisplay';
 import HeadBanner from '~/components/head-banner/HeadBanner';
 import LoadingDisplay from '~/components/loading-display/LoadingDisplay';
-import DesktopTable from '~/components/order-table/DesktopTable';
-import MobileTable from '~/components/order-table/MobileTable';
+import DuoTable from '~/components/order-table/DuoTable';
 import { Button } from '~/components/ui/button';
 import { getTokenDescription } from '~/data/token/tokenData';
 
+/**
+ * This is the main component for the Stock Ticker page.
+ * It fetches and displays real-time updates and detailed analytics of stock market activity.
+ */
 export default function Page() {
     const [watchlist, setWatchlist] = useLocalStorage<string[]>(
         'userSelectedWatchList',
         [],
     );
 
+    const router = useRouter();
     const pathname = usePathname();
 
     const utils = api.useUtils();
 
-    const searchTerm = `${pathname.split('/')[1]}/USD`;
+    const searchTerm = `${pathname.split('/')[2]}/USD`;
 
     const description =
         getTokenDescription(searchTerm) || 'No description found';
+
+    const isCurrencyInValid = description === 'No description found';
+
+    if (isCurrencyInValid) {
+        router.push('/404');
+    }
 
     const {
         data: liveData,
         refetch: latestDataRefetch,
         isError: isLiveError,
+        isLoading,
     } = api.orderBook.getOrderBook.useQuery(undefined, {
         refetchInterval: 500,
+        enabled: !isCurrencyInValid,
     });
 
     const { data: historyData, isError: isHistoryError } =
@@ -74,7 +86,7 @@ export default function Page() {
         await utils.orderBook.getStorageOrderBookData.invalidate();
     };
 
-    if (!historyData) {
+    if (!historyData && !isHistoryError && isLoading) {
         return (
             <>
                 <HeadBanner heading={searchTerm} description={description} />
@@ -88,8 +100,8 @@ export default function Page() {
             <div className="flex w-full flex-col items-center justify-center ">
                 <HeadBanner heading={searchTerm} description={description} />
                 <Button
-                    className="mt-4 flex  w-44 justify-center  rounded-full bg-green-500 text-white hover:bg-green-900 md:mt-6 md:w-52"
-                    disabled={isHistoryError}
+                    className={`mt-4 flex  w-44 justify-center  rounded-full ${isInWatchlist ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-900'} text-white  md:mt-6 md:w-52`}
+                    disabled={isHistoryError || isCurrencyInValid}
                     onClick={handleWatchlistAction}
                 >
                     {isInWatchlist ? (
@@ -130,16 +142,11 @@ export default function Page() {
                             </span>
                         </div>
                     </div>
-                    <DesktopTable
+                    <DuoTable
                         showDetails={false}
                         showTicker={false}
                         showRefresh={true}
                         tableStyleProps={' w-11/12  mx-auto'}
-                        orderBookData={searchTokenLatestData}
-                        refetch={handleRefresh}
-                    />
-                    <MobileTable
-                        showDetails={false}
                         orderBookData={searchTokenLatestData}
                         refetch={handleRefresh}
                     />
@@ -155,16 +162,11 @@ export default function Page() {
                             </span>
                         </div>
                     </div>
-                    <DesktopTable
+                    <DuoTable
                         showDetails={false}
                         showTicker={false}
                         showRefresh={true}
                         tableStyleProps={' w-11/12  mx-auto'}
-                        orderBookData={historyData || []}
-                        refetch={handleRefresh}
-                    />
-                    <MobileTable
-                        showDetails={false}
                         orderBookData={historyData || []}
                         refetch={handleRefresh}
                     />

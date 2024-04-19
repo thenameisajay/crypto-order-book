@@ -8,14 +8,22 @@ import type { OrderBookData } from '~/types/interfaces/orderBookData';
 import ErrorDisplay from '~/components/error-display/ErrorDisplay';
 import HeadBanner from '~/components/head-banner/HeadBanner';
 import LoadingDisplay from '~/components/loading-display/LoadingDisplay';
-import DesktopTable from '~/components/order-table/DesktopTable';
-import MobileTable from '~/components/order-table/MobileTable';
+import DuoTable from '~/components/order-table/DuoTable';
 
 const heading: string = 'Unlock the Power of Crypto Order Book Data';
 
 const description: string =
     'Dive into the real-time order book dynamics of your favorite cryptocurrencies. Our intuitive interface lets you seamlessly track and analyze market trends, empowering your trading decisions.';
-
+/**
+ * The `Home` component is the main entry point of the application, displaying the order book data for cryptocurrencies.
+ *
+ * This component uses the `tRPC` API to fetch the order book data and renders it using the `DuoTable` component. If the data is not available or there is an error, it displays appropriate loading or error messages.
+ *
+ * The component also includes a `HeadBanner` component that displays a heading and description for the page.
+ *
+ * @returns {JSX.Element} The rendered `Home` component.
+ 
+ */
 export default function Home() {
     const {
         data: orderBookData,
@@ -27,7 +35,7 @@ export default function Home() {
 
     console.log('orderBookData', orderBookData);
 
-    if (!orderBookData) {
+    if (!orderBookData && !isError) {
         return (
             <>
                 <HeadBanner heading={heading} description={description} />
@@ -40,18 +48,11 @@ export default function Home() {
         <>
             <HeadBanner heading={heading} description={description} />
             {!isError ? (
-                <>
-                    <DesktopTable
-                        showDetails={true}
-                        orderBookData={(orderBookData as OrderBookData[]) || []}
-                        refetch={refetch}
-                    />
-                    <MobileTable
-                        showDetails={true}
-                        orderBookData={(orderBookData as OrderBookData[]) || []}
-                        refetch={refetch}
-                    />
-                </>
+                <DuoTable
+                    orderBookData={(orderBookData as OrderBookData[]) || []}
+                    refetch={refetch}
+                    showDetails={true}
+                />
             ) : (
                 <ErrorDisplay refetch={refetch} />
             )}

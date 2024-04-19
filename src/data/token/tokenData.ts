@@ -10,3 +10,11 @@ export const getTokenDescription = (token: string) => {
     console.log(tokenData[token]);
     return tokenData[token];
 };
+
+export const SUPPORTED_COINS = [
+    'BTC/USD',
+    'ETH/USD',
+    'XRP/USD',
+    'LTC/USD',
+    'DOGE/USD',
+];
