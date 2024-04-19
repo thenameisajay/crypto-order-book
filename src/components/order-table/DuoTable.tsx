@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import type { OrderBookData } from '~/types/interfaces/orderBookData';
 
 import DesktopTable from '~/components/order-table/DesktopTable';
 import MobileTable from '~/components/order-table/MobileTable';
 
-export default function DuoTable({
+/*
+ DuoTable is a component that combines the DesktopTable and MobileTable components.
+*/
+function DuoTable({
     orderBookData,
     refetch,
     showDetails,
@@ -39,3 +42,5 @@ export default function DuoTable({
         </>
     );
 }
+
+export default memo(DuoTable);

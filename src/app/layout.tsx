@@ -24,6 +24,17 @@ export const metadata: Metadata = {
     creator: 'thenameisajay - https://github.com/thenameisajay',
 };
 
+/**
+ * This is the main layout component for a Next.js application.
+ *
+ * The `RootLayout` component is responsible for rendering the overall structure and layout of the application,
+ * including the HTML structure, global styles, font, toast notifications, development banner, navigation, and tRPC provider.
+ *
+ * @param {Object} props - The props passed to the `RootLayout` component.
+ * @param {React.ReactNode} props.children - The child components to be rendered within the layout.
+ * @returns {JSX.Element} The rendered `RootLayout` component.
+ */
+
 export default function RootLayout({
     children,
 }: {

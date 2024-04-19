@@ -19,6 +19,12 @@ const heading: string = 'Watchlist';
 const description: string =
     'Curate your personalized crypto portfolio and stay updated on cryptocurrency market trends.';
 
+// ?This code can be further optimised but I've run out of time to do so
+/**
+ * The `Page` component represents the main page of a cryptocurrency watchlist application.
+ * It allows users to manage their personalized watchlist, view live order book data for various cryptocurrencies,
+ * and interact with the watchlist through actions like adding or removing coins.
+ */
 export default function Page() {
     const [watchlist, setWatchlist, removeValue] = useLocalStorage(
         'userSelectedWatchList',

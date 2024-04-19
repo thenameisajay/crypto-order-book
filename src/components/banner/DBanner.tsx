@@ -8,7 +8,7 @@ import { useLocalStorage } from 'usehooks-ts';
 
 import { Button } from '~/components/ui/button';
 
-const devMessage = `This site is under development. Some features may not work as expected.`;
+// const devMessage = `This site is under development. Some features may not work as expected.`;
 
 const demoMessage = `This is a demo version of a crypto platform. Do not make real trade decisions based on the data provided.`;
 
@@ -51,7 +51,7 @@ export default function DevelopmentBanner() {
             <div className="flex w-full  items-center justify-center p-3 text-center md:p-4">
                 <div className="">
                     <p className="text-center text-xs font-medium md:text-base">
-                        {devMessage}
+                        {demoMessage}
                     </p>
                 </div>
             </div>

@@ -17,6 +17,10 @@ import DuoTable from '~/components/order-table/DuoTable';
 import { Button } from '~/components/ui/button';
 import { getTokenDescription } from '~/data/token/tokenData';
 
+/**
+ * This is the main component for the Stock Ticker page.
+ * It fetches and displays real-time updates and detailed analytics of stock market activity.
+ */
 export default function Page() {
     const [watchlist, setWatchlist] = useLocalStorage<string[]>(
         'userSelectedWatchList',

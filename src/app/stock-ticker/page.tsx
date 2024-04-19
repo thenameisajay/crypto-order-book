@@ -12,6 +12,10 @@ const heading: string = 'Stock Ticker';
 const description: string =
     'Monitor real-time updates and detailed analytics of stock market activity.';
 
+/**
+ * This is the main component for the Stock Ticker page.
+ * It fetches and displays real-time updates and detailed analytics of stock market activity.
+ */
 export default function Page() {
     const utils = api.useUtils();
 
