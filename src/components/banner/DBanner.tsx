@@ -10,7 +10,7 @@ import { Button } from '~/components/ui/button';
 
 const developmentMessage = `This site is under development. Some features may not work as expected.`;
 
-const demoMessage = `This is a demo site. Do not make real decisions based on the data provided.`;
+const demoMessage = `This is a demo version of a platform. Do not make real trade decisions based on the data provided.`;
 
 export default function DevelopmentBanner() {
     const [isDismissed, setIsDismissed] = useLocalStorage(

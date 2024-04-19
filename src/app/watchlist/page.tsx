@@ -10,22 +10,14 @@ import { api } from '~/trpc/react';
 // import ErrorDisplay from '~/components/error-display/ErrorDisplay';
 import HeadBanner from '~/components/head-banner/HeadBanner';
 import LoadingDisplay from '~/components/loading-display/LoadingDisplay';
-// import DesktopTable from '~/components/order-table/DesktopTable';
 import { Button } from '~/components/ui/button';
 // import { OrderBookData } from '~/types/interfaces/orderBookData';
 import EmptyWatchList from '~/components/watchlist-display/Empty';
+import { SUPPORTED_COINS } from '~/data/token/tokenData';
 
 const heading: string = 'Watchlist';
 const description: string =
     'Curate your personalized crypto portfolio and stay updated on cryptocurrency market trends.';
-
-// const SUPPORTED_COINS = [
-//     'BTC/USD',
-//     'ETH/USD',
-//     'XRP/USD',
-//     'LTC/USD',
-//     'DOGE/USD',
-// ];
 
 export default function Page() {
     const [watchlist, setWatchlist, removeValue] = useLocalStorage(
@@ -49,18 +41,6 @@ export default function Page() {
             </div>
         );
     }
-
-    // const watchlistState = watchlist.reduce(
-    //     (acc: Record<string, boolean>, coin) => {
-    //         acc[coin] = true;
-    //         return acc;
-    //     },
-    //     {},
-    // );
-
-    // const filteredLiveData = latestLiveData.filter(
-    //     (item) => watchlistState[item.coin],
-    // ) as OrderBookData[];
 
     const LocalBanner = () => {
         return (

@@ -8,8 +8,7 @@ import type { OrderBookData } from '~/types/interfaces/orderBookData';
 import ErrorDisplay from '~/components/error-display/ErrorDisplay';
 import HeadBanner from '~/components/head-banner/HeadBanner';
 import LoadingDisplay from '~/components/loading-display/LoadingDisplay';
-import DesktopTable from '~/components/order-table/DesktopTable';
-import MobileTable from '~/components/order-table/MobileTable';
+import DuoTable from '~/components/order-table/DuoTable';
 
 const heading: string = 'Unlock the Power of Crypto Order Book Data';
 
@@ -40,18 +39,11 @@ export default function Home() {
         <>
             <HeadBanner heading={heading} description={description} />
             {!isError ? (
-                <>
-                    <DesktopTable
-                        showDetails={true}
-                        orderBookData={(orderBookData as OrderBookData[]) || []}
-                        refetch={refetch}
-                    />
-                    <MobileTable
-                        showDetails={true}
-                        orderBookData={(orderBookData as OrderBookData[]) || []}
-                        refetch={refetch}
-                    />
-                </>
+                <DuoTable
+                    orderBookData={(orderBookData as OrderBookData[]) || []}
+                    refetch={refetch}
+                    showDetails={true}
+                />
             ) : (
                 <ErrorDisplay refetch={refetch} />
             )}

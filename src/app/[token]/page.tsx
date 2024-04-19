@@ -13,8 +13,7 @@ import { type OrderBookData } from '~/types/interfaces/orderBookData';
 import ErrorDisplay from '~/components/error-display/ErrorDisplay';
 import HeadBanner from '~/components/head-banner/HeadBanner';
 import LoadingDisplay from '~/components/loading-display/LoadingDisplay';
-import DesktopTable from '~/components/order-table/DesktopTable';
-import MobileTable from '~/components/order-table/MobileTable';
+import DuoTable from '~/components/order-table/DuoTable';
 import { Button } from '~/components/ui/button';
 import { getTokenDescription } from '~/data/token/tokenData';
 
@@ -130,16 +129,11 @@ export default function Page() {
                             </span>
                         </div>
                     </div>
-                    <DesktopTable
+                    <DuoTable
                         showDetails={false}
                         showTicker={false}
                         showRefresh={true}
                         tableStyleProps={' w-11/12  mx-auto'}
-                        orderBookData={searchTokenLatestData}
-                        refetch={handleRefresh}
-                    />
-                    <MobileTable
-                        showDetails={false}
                         orderBookData={searchTokenLatestData}
                         refetch={handleRefresh}
                     />
@@ -155,16 +149,11 @@ export default function Page() {
                             </span>
                         </div>
                     </div>
-                    <DesktopTable
+                    <DuoTable
                         showDetails={false}
                         showTicker={false}
                         showRefresh={true}
                         tableStyleProps={' w-11/12  mx-auto'}
-                        orderBookData={historyData || []}
-                        refetch={handleRefresh}
-                    />
-                    <MobileTable
-                        showDetails={false}
                         orderBookData={historyData || []}
                         refetch={handleRefresh}
                     />
