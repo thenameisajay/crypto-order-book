@@ -3,7 +3,7 @@
 import React from 'react';
 import toast from 'react-hot-toast';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { Binoculars, Trash } from '@phosphor-icons/react';
 import { useLocalStorage } from 'usehooks-ts';
@@ -23,21 +23,30 @@ export default function Page() {
         [],
     );
 
+    const router = useRouter();
     const pathname = usePathname();
 
     const utils = api.useUtils();
 
-    const searchTerm = `${pathname.split('/')[1]}/USD`;
+    const searchTerm = `${pathname.split('/')[2]}/USD`;
 
     const description =
         getTokenDescription(searchTerm) || 'No description found';
+
+    const isCurrencyInValid = description === 'No description found';
+
+    if (isCurrencyInValid) {
+        router.push('/404');
+    }
 
     const {
         data: liveData,
         refetch: latestDataRefetch,
         isError: isLiveError,
+        isLoading,
     } = api.orderBook.getOrderBook.useQuery(undefined, {
         refetchInterval: 500,
+        enabled: !isCurrencyInValid,
     });
 
     const { data: historyData, isError: isHistoryError } =
@@ -73,7 +82,7 @@ export default function Page() {
         await utils.orderBook.getStorageOrderBookData.invalidate();
     };
 
-    if (!historyData && !isHistoryError) {
+    if (!historyData && !isHistoryError && isLoading) {
         return (
             <>
                 <HeadBanner heading={searchTerm} description={description} />
@@ -88,7 +97,7 @@ export default function Page() {
                 <HeadBanner heading={searchTerm} description={description} />
                 <Button
                     className={`mt-4 flex  w-44 justify-center  rounded-full ${isInWatchlist ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-900'} text-white  md:mt-6 md:w-52`}
-                    disabled={isHistoryError}
+                    disabled={isHistoryError || isCurrencyInValid}
                     onClick={handleWatchlistAction}
                 >
                     {isInWatchlist ? (

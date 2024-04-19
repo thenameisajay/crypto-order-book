@@ -216,7 +216,7 @@ export default function DesktopTable({
                             dataIndex: 'coin',
 
                             render: (coin: string) => {
-                                const hrefLink = `${coin.split('/')[0]}`;
+                                const hrefLink = `currency/${coin.split('/')[0]}`;
                                 return (
                                     <>
                                         {showDetails && (
