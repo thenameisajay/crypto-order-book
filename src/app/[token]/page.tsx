@@ -87,7 +87,7 @@ export default function Page() {
             <div className="flex w-full flex-col items-center justify-center ">
                 <HeadBanner heading={searchTerm} description={description} />
                 <Button
-                    className="mt-4 flex  w-44 justify-center  rounded-full bg-green-500 text-white hover:bg-green-900 md:mt-6 md:w-52"
+                    className={`mt-4 flex  w-44 justify-center  rounded-full ${isInWatchlist ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-900'} text-white  md:mt-6 md:w-52`}
                     disabled={isHistoryError}
                     onClick={handleWatchlistAction}
                 >

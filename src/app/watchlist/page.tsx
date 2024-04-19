@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { X } from '@phosphor-icons/react';
@@ -8,7 +8,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { api } from '~/trpc/react';
 import { type OrderBookData } from '~/types/interfaces/orderBookData';
 
-// import ErrorDisplay from '~/components/error-display/ErrorDisplay';
+import ErrorDisplay from '~/components/error-display/ErrorDisplay';
 import HeadBanner from '~/components/head-banner/HeadBanner';
 import LoadingDisplay from '~/components/loading-display/LoadingDisplay';
 import DuoTable from '~/components/order-table/DuoTable';
@@ -24,6 +24,19 @@ export default function Page() {
         'userSelectedWatchList',
         [''],
     );
+
+    // This is condition is due to the hook setting the initial value to [''] and the length of the array is 1 (Weird implementation)
+    const isEmpty =
+        (watchlist.length === 1 && watchlist[0] === '') ||
+        watchlist.length === 0;
+
+    console.log('Watch List', watchlist);
+
+    console.log('Watch List is Empty', isEmpty);
+
+    const [clearedWatchlist, setClearedWatchlist] = useState(isEmpty);
+
+    console.log('Cleared Watch List', clearedWatchlist);
 
     const {
         data: latestLiveData,
@@ -63,7 +76,11 @@ export default function Page() {
           ) as OrderBookData[])
         : [];
 
-    const showBTC = watchlist.includes('BTC/USD') ? true : false;
+    const showBTC = watchlist
+        ? watchlist.includes('BTC/USD')
+            ? true
+            : false
+        : false;
     const showETH = watchlist.includes('ETH/USD') ? true : false;
     const showDOGE = watchlist.includes('DOGE/USD') ? true : false;
     const showXRP = watchlist.includes('XRP/USD') ? true : false;
@@ -78,6 +95,19 @@ export default function Page() {
         );
     }
 
+    const handleWatchlistAction = (searchTerm: string) => {
+        if (watchlist.includes(searchTerm)) {
+            const updatedWatchlist = watchlist.filter(
+                (item) => item !== searchTerm,
+            );
+            setWatchlist(updatedWatchlist);
+            toast.success('Removed from watchlist');
+            if (updatedWatchlist.length === 0) {
+                setClearedWatchlist(true);
+            }
+        }
+    };
+
     const LocalBanner = () => {
         return (
             <div className="flex flex-col items-center">
@@ -85,9 +115,10 @@ export default function Page() {
                 <div className=" flex w-44 items-center justify-center">
                     <Button
                         className="my-2 mb-5 flex flex-row bg-red-500 font-bold text-white  hover:bg-red-600 md:mt-6 md:text-base"
-                        disabled={watchlist.length === 0 ? true : false}
+                        disabled={clearedWatchlist}
                         onClick={() => {
                             removeValue();
+                            setClearedWatchlist(true);
                             toast.success('Watchlist cleared successfully');
                         }}
                     >
@@ -95,7 +126,7 @@ export default function Page() {
                         <span>Clear Watchlist</span>
                     </Button>
                 </div>
-                {watchlist.length === 0 && <EmptyWatchList />}
+                {(isEmpty || clearedWatchlist) && <EmptyWatchList />}
             </div>
         );
     };
@@ -103,89 +134,155 @@ export default function Page() {
     return (
         <>
             <LocalBanner />
-            {showBTC && (
+            {isError ? (
+                <ErrorDisplay refetch={handleRefresh} />
+            ) : (
                 <>
-                    <div className=" -mb-4 flex w-full justify-center">
-                        <div className="mt-4 flex justify-center">
-                            <span className=" text-xl font-bold md:text-5xl">
-                                BTC/USD (Live)
-                            </span>
-                        </div>
-                    </div>
-                    <DuoTable
-                        orderBookData={liveBTC}
-                        refetch={handleRefresh}
-                        showDetails={true}
-                        tableStyleProps={' w-11/12  mx-auto'}
-                    />
-                </>
-            )}
-            {showETH && (
-                <>
-                    <div className=" -mb-4 flex w-full justify-center">
-                        <div className="mt-4 flex justify-center">
-                            <span className=" text-xl font-bold md:text-5xl">
-                                ETH/USD (Live)
-                            </span>
-                        </div>
-                    </div>
-                    <DuoTable
-                        orderBookData={liveETH}
-                        refetch={handleRefresh}
-                        showDetails={true}
-                        tableStyleProps={' w-11/12  mx-auto'}
-                    />
-                </>
-            )}
-            {showDOGE && (
-                <>
-                    <div className=" -mb-4 flex w-full justify-center">
-                        <div className="mt-4 flex justify-center">
-                            <span className=" text-xl font-bold md:text-5xl">
-                                DOGE/USD (Live)
-                            </span>
-                        </div>
-                    </div>
-                    <DuoTable
-                        orderBookData={liveDOGE}
-                        refetch={handleRefresh}
-                        showDetails={true}
-                        tableStyleProps={' w-11/12  mx-auto'}
-                    />
-                </>
-            )}
-            {showXRP && (
-                <>
-                    <div className=" -mb-4 flex w-full justify-center">
-                        <div className="mt-4 flex justify-center">
-                            <span className=" text-xl font-bold md:text-5xl">
-                                XRP/USD (Live)
-                            </span>
-                        </div>
-                    </div>
-                    <DuoTable
-                        orderBookData={liveXRP}
-                        refetch={handleRefresh}
-                        showDetails={true}
-                        tableStyleProps={' w-11/12  mx-auto'}
-                    />
-                </>
-            )}
-            {showLTC && (
-                <>
-                    <div className=" -mb-4 flex w-full justify-center">
-                        <div className="mt-4 flex justify-center">
-                            <span className=" text-xl font-bold md:text-5xl">
-                                LTC/USD (Live)
-                            </span>
-                        </div>
-                    </div>
-                    <DuoTable
-                        orderBookData={liveLTC}
-                        refetch={handleRefresh}
-                        showDetails={true}
-                        tableStyleProps={' w-11/12  mx-auto'}
-                    />
+                    {showBTC && (
+                        <>
+                            <div className=" -mb-4 w-full flex-col items-center">
+                                <div className="mt-4 flex items-center justify-center">
+                                    <span className=" text-xl font-bold md:text-5xl">
+                                        BTC/USD (Live)
+                                    </span>
+                                    <Button
+                                        className="mx-2  mt-2  h-10 w-16 rounded-full bg-black p-2  font-bold text-white hover:bg-red-500 "
+                                        onClick={() =>
+                                            handleWatchlistAction('BTC/USD')
+                                        }
+                                    >
+                                        <X
+                                            size={30}
+                                            weight="bold"
+                                            className="mx-2"
+                                        />
+                                    </Button>
+                                </div>
+                            </div>
+                            <DuoTable
+                                orderBookData={liveBTC}
+                                refetch={handleRefresh}
+                                showDetails={true}
+                                tableStyleProps={' w-11/12  mx-auto'}
+                            />
+                        </>
+                    )}
+                    {showETH && (
+                        <>
+                            <div className=" -mb-4 w-full flex-col items-center">
+                                <div className="mt-4 flex items-center justify-center">
+                                    <span className=" text-xl font-bold md:text-5xl">
+                                        ETH/USD (Live)
+                                    </span>
+                                    <Button
+                                        className="mx-2  mt-2  h-10 w-16 rounded-full bg-black p-2  font-bold text-white hover:bg-red-500 "
+                                        onClick={() =>
+                                            handleWatchlistAction('ETH/USD')
+                                        }
+                                    >
+                                        <X
+                                            size={30}
+                                            weight="bold"
+                                            className="mx-2"
+                                        />
+                                    </Button>
+                                </div>
+                            </div>
+                            <DuoTable
+                                orderBookData={liveETH}
+                                refetch={handleRefresh}
+                                showDetails={true}
+                                tableStyleProps={' w-11/12  mx-auto'}
+                            />
+                        </>
+                    )}
+                    {showDOGE && (
+                        <>
+                            <div className=" -mb-4 w-full flex-col items-center">
+                                <div className="mt-4 flex items-center justify-center">
+                                    <span className=" text-xl font-bold md:text-5xl">
+                                        DOGE/USD (Live)
+                                    </span>
+                                    <Button
+                                        className="mx-2  mt-2  h-10 w-16 rounded-full bg-black p-2  font-bold text-white hover:bg-red-500 "
+                                        onClick={() =>
+                                            handleWatchlistAction('DOGE/USD')
+                                        }
+                                    >
+                                        <X
+                                            size={30}
+                                            weight="bold"
+                                            className="mx-2"
+                                        />
+                                    </Button>
+                                </div>
+                            </div>
+                            <DuoTable
+                                orderBookData={liveDOGE}
+                                refetch={handleRefresh}
+                                showDetails={true}
+                                tableStyleProps={' w-11/12  mx-auto'}
+                            />
+                        </>
+                    )}
+                    {showXRP && (
+                        <>
+                            <div className=" -mb-4 w-full flex-col items-center">
+                                <div className="mt-4 flex items-center justify-center">
+                                    <span className=" text-xl font-bold md:text-5xl">
+                                        XRP/USD (Live)
+                                    </span>
+                                    <Button
+                                        className="mx-2  mt-2  h-10 w-16 rounded-full bg-black p-2  font-bold text-white hover:bg-red-500 "
+                                        onClick={() =>
+                                            handleWatchlistAction('XRP/USD')
+                                        }
+                                    >
+                                        <X
+                                            size={30}
+                                            weight="bold"
+                                            className="mx-2"
+                                        />
+                                    </Button>
+                                </div>
+                            </div>
+                            <DuoTable
+                                orderBookData={liveXRP}
+                                refetch={handleRefresh}
+                                showDetails={true}
+                                tableStyleProps={' w-11/12  mx-auto'}
+                            />
+                        </>
+                    )}
+                    {showLTC && (
+                        <>
+                            <div className=" -mb-4 w-full flex-col items-center">
+                                <div className="mt-4 flex items-center justify-center">
+                                    <span className=" text-xl font-bold md:text-5xl">
+                                        LTC/USD (Live)
+                                    </span>
+                                    <Button
+                                        className="mx-2  mt-2  h-10 w-16 rounded-full bg-black p-2  font-bold text-white hover:bg-red-500 "
+                                        onClick={() =>
+                                            handleWatchlistAction('LTC/USD')
+                                        }
+                                    >
+                                        <X
+                                            size={30}
+                                            weight="bold"
+                                            className="mx-2"
+                                        />
+                                    </Button>
+                                </div>
+                            </div>
+                            <DuoTable
+                                orderBookData={liveLTC}
+                                refetch={handleRefresh}
+                                showDetails={true}
+                                tableStyleProps={' w-11/12  mx-auto'}
+                            />
+                        </>
+                    )}
                 </>
             )}
         </>
