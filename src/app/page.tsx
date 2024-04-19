@@ -27,7 +27,7 @@ export default function Home() {
 
     console.log('orderBookData', orderBookData);
 
-    if (!orderBookData) {
+    if (!orderBookData && !isError) {
         return (
             <>
                 <HeadBanner heading={heading} description={description} />

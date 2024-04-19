@@ -41,7 +41,7 @@ export default function Page() {
         refetchInterval: 500,
     });
 
-    if (!latestLiveData) {
+    if (!latestLiveData && !isError) {
         return (
             <div>
                 <HeadBanner heading={heading} description={description} />

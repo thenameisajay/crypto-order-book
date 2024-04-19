@@ -28,7 +28,7 @@ export default function Page() {
             refetchInterval: 510,
         });
 
-    if (!storageOrderBookData) {
+    if (!storageOrderBookData && !isError) {
         return (
             <>
                 <HeadBanner heading={heading} description={description} />

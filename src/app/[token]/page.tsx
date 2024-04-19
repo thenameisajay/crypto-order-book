@@ -74,7 +74,7 @@ export default function Page() {
         await utils.orderBook.getStorageOrderBookData.invalidate();
     };
 
-    if (!historyData) {
+    if (!historyData && !isHistoryError) {
         return (
             <>
                 <HeadBanner heading={searchTerm} description={description} />
