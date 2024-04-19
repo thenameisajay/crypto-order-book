@@ -49,7 +49,7 @@ export default function Page() {
         isError,
         refetch: handleRefresh,
     } = api.orderBook.getOrderBook.useQuery(undefined, {
-        refetchInterval: 500,
+        refetchInterval: 1,
     });
 
     const liveBTC = latestLiveData
