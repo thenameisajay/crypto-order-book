@@ -24,6 +24,12 @@ The Cryptocurrency Order Book App is a web application built using the T3 Stack,
 
 9. **Icon Library**: Integrating an icon library like Phosphor Icons can enhance the visual appeal and consistency of the application.
 
+10. **Husky, Prettier, and ESLint**: These tools were used to enforce code quality standards and maintain a consistent codebase.
+
+-   **Husky**: A Git hook library that allows you to run scripts before certain Git events, such as commit or push. This helps ensure that code meets the project's quality standards before it's committed.
+-   **Prettier**: An opinionated code formatter that automatically formats the code to a consistent style, reducing the time spent on manual formatting and improving code readability.
+-   **ESLint**: A pluggable linting utility for JavaScript and TypeScript that helps identify and fix problematic patterns in the code. This ensures that the codebase adheres to best practices and coding standards.
+
 ## Key Lessons Learned
 
 1. **Handling Real-Time Data**: Efficiently processing and displaying live data updates from a WebSocket connection requires careful consideration of performance and latency. Throttling the data can be a necessary step to ensure a smooth user experience.
@@ -35,6 +41,8 @@ The Cryptocurrency Order Book App is a web application built using the T3 Stack,
 4. **Modular and Extensible Architecture**: The application's use of tRPC's modular and extensible architecture suggests that this approach can be beneficial for building scalable and maintainable applications, especially as the codebase grows in complexity.
 
 5. **Comprehensive Testing**: The type-safe nature of tRPC and its clear API boundaries facilitate the creation of comprehensive tests, which is crucial for ensuring the reliability and robustness of a real-time, data-driven application.
+
+6. **Enforcing Code Quality Standards**: The use of Husky, Prettier, and ESLint helps maintain a consistent and high-quality codebase, which is essential for a project that aims to be scalable and maintainable.
 
 ## Conclusion
 

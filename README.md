@@ -18,6 +18,9 @@ This is a web application built using the T3 Stack, which includes React, Next.j
 -   **useHooks**: A custom hooks library used in the application.
 -   **DayJS**: A library for handling date and time operations.
 -   **Phosphor Icons**: An icon library used in the application.
+-   **Husky**: A tool for running scripts before Git commits and pushes.
+-   **Prettier**: A code formatter that ensures consistent code style.
+-   **ESLint**: A tool for identifying and reporting on patterns in JavaScript and TypeScript.
 
 ## Features
 
@@ -114,6 +117,20 @@ DayJS is a library for handling date and time operations. It was chosen for this
 ### Phosphor Icons
 
 Phosphor Icons is an icon library that was used in this project to provide a consistent and visually appealing set of icons throughout the application.
+
+### Husky, Prettier, and ESLint
+
+In addition to the core technologies and libraries used in this project, I have also incorporated Husky, Prettier, and ESLint to enforce code quality and consistency.
+
+**Husky**: Husky is a tool that allows you to run scripts before Git commits and pushes. In this project, Husky is used to run Prettier and ESLint checks before each commit, ensuring that the codebase maintains a consistent style and adheres to best practices.
+
+**Prettier**: Prettier is a code formatter that automatically formats the code according to a set of predefined rules. By using Prettier, the project ensures that the codebase has a consistent code style, making it easier to read, understand, and maintain.
+
+**ESLint**: ESLint is a tool that identifies and reports on patterns in JavaScript and TypeScript code. In this project, ESLint is used to enforce TypeScript-specific rules, catch potential errors, and promote best practices. This helps maintain the overall code quality and reliability of the application.
+
+The use of these tools, in combination with TypeScript and tRPC, provides a robust development environment that promotes code quality, consistency, and maintainability. This is particularly important for a real-time, data-driven application like the cryptocurrency order book, where code reliability and scalability are crucial.
+
+By enforcing code standards and best practices through Husky, Prettier, and ESLint, the project ensures that the codebase remains clean, readable, and easy to work with, even as the application grows in complexity. This, in turn, facilitates collaboration, simplifies future development and maintenance tasks, and helps prevent the introduction of bugs or security vulnerabilities.
 
 ## Assumptions Made
 
