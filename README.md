@@ -34,7 +34,7 @@ This is a web application built using the T3 Stack, which includes React, Next.j
 
 1. Clone the repository.
 2. Run `npm i` to install the dependencies.
-3. Insert the environment variables in the `.env` file as seen in `.env.example`.
+3. Insert the environment variables in the `.env` file as seen in `.env.example`. // DB - POSTGRES
 4. Note: Since the `WS_URL` is private and owned, only those with access can run the project.
 5. Run `prisma migrate dev` to create the database schema.
 6. Run `npm run dev` to start the development server.
