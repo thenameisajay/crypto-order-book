@@ -96,7 +96,7 @@ By leveraging tRPC's features, the cryptocurrency order book application can ben
 
 ### Prisma
 
-Prisma is an open-source database toolkit that includes an ORM. It was chosen for this project because it provides a type-safe and easy-to-use interface for interacting with the PostgreSQL database, which is used to store the user's watchlist data.
+Prisma is an open-source database toolkit that includes an ORM. It was chosen for this project because it provides a type-safe and easy-to-use interface for interacting with the PostgreSQL database, which is used to store the data received from the connection.
 
 ### PostgreSQL
 
