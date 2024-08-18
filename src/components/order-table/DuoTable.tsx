@@ -1,3 +1,5 @@
+'use client';
+
 import React, { memo } from 'react';
 
 import type { OrderBookData } from '~/types/interfaces/orderBookData';
@@ -12,7 +14,7 @@ function DuoTable({
     orderBookData,
     refetch,
     showDetails,
-    showTicker,
+
     tableStyleProps,
     showRefresh,
 }: {
@@ -29,7 +31,6 @@ function DuoTable({
                 showDetails={showDetails}
                 orderBookData={(orderBookData as OrderBookData[]) || []}
                 refetch={refetch}
-                showTicker={showTicker}
                 showRefresh={showRefresh}
                 tableStyleProps={tableStyleProps}
             />

@@ -1,8 +1,8 @@
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { Browsers } from '@phosphor-icons/react';
 import { Table, Tag } from 'antd';
-// import { orderBookData } from '~/data/fakeData/fakeData';
 import type { OrderBookData } from '~/types/interfaces/orderBookData';
 import { getLastUpdatedTime } from '~/utils/lastUpdated';
 import { getLocaleTime } from '~/utils/localeTime';
@@ -20,6 +20,12 @@ export default function MobileTable({
     orderBookData: OrderBookData[];
     refetch: () => void;
 }) {
+    const pathname = usePathname();
+
+    console.log('pathname', pathname);
+
+    const isonTickerPage: boolean = pathname === '/ticker';
+
     return (
         <div className="mt-10 w-full flex-col items-center justify-center overflow-x-clip  lg:hidden">
             {
@@ -160,14 +166,16 @@ export default function MobileTable({
                 >
                     Refresh
                 </Button>
-                <Link href="/ticker">
-                    <Button
-                        variant={'secondary'}
-                        className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
-                    >
-                        Ticker
-                    </Button>
-                </Link>
+                {!isonTickerPage && (
+                    <Link href="/ticker">
+                        <Button
+                            variant={'secondary'}
+                            className="mx-2 bg-[#105a37]   text-base font-semibold text-white hover:bg-black"
+                        >
+                            Ticker
+                        </Button>
+                    </Link>
+                )}
             </div>
         </div>
     );
