@@ -15,7 +15,7 @@
         "check-types": "tsc --noEmit",
         "check-format": "npx prettier . --check",
         "format": "npx prettier . --write",
-        "prepare-commit": "npm run lint && npm run check-types && npm run check-format"
+        "checks": "npm run lint && npm run check-types && npm run check-format"
     },
     "dependencies": {
         "@phosphor-icons/react": "^2.1.4",

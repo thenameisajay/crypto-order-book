@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { Table, Tag } from 'antd';
 // import { orderBookData } from '~/data/fakeData/fakeData';
@@ -15,16 +16,23 @@ export default function DesktopTable({
     orderBookData,
     refetch,
     showDetails = true,
-    showTicker = true,
+
     showRefresh = true,
 }: {
     tableStyleProps?: string;
     orderBookData: OrderBookData[];
     refetch: () => void;
     showDetails?: boolean;
-    showTicker?: boolean;
+
     showRefresh?: boolean;
 }) {
+    const pathname = usePathname();
+    const isonTickerPage: boolean = pathname === '/ticker';
+
+    console.log('pathname', pathname);
+
+    console.log('isonTickerPage', isonTickerPage);
+
     return (
         <div className="mt-10 hidden w-full flex-col items-center justify-center lg:flex">
             {
@@ -251,7 +259,7 @@ export default function DesktopTable({
                         Refresh
                     </Button>
                 )}
-                {showTicker && (
+                {!isonTickerPage && (
                     <Link href="/ticker">
                         <Button
                             variant={'secondary'}
