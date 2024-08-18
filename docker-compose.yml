@@ -1,0 +1,23 @@
+services:
+    pgsql:
+        container_name: pgsql_crypto-order-book
+        image: bitnami/postgresql:16-debian-12
+        ports:
+            - '5321:5432'
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+        volumes:
+            - ./pgdata:/bitnami/postgresql/data
+        restart: unless-stopped
+        networks:
+            dockernet:
+                ipv4_address: 172.11.11.10
+
+networks:
+    dockernet:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.11.11.0/24

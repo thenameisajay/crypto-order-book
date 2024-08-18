@@ -13,7 +13,7 @@ import DuoTable from '~/components/order-table/DuoTable';
 const heading: string = 'Unlock the Power of Crypto Order Book Data';
 
 const description: string =
-    'Dive into the real-time order book dynamics of your favorite cryptocurrencies. Our intuitive interface lets you seamlessly track and analyze market trends, empowering your trading decisions.';
+    ' Our intuitive interface lets you seamlessly track and analyze market trends, empowering your trading decisions.';
 /**
  * The `Home` component is the main entry point of the application, displaying the order book data for cryptocurrencies.
  *
@@ -47,15 +47,17 @@ export default function Home() {
     return (
         <>
             <HeadBanner heading={heading} description={description} />
-            {!isError ? (
-                <DuoTable
-                    orderBookData={(orderBookData as OrderBookData[]) || []}
-                    refetch={refetch}
-                    showDetails={true}
-                />
-            ) : (
-                <ErrorDisplay refetch={refetch} />
-            )}
+            <div className="lg:py-30 flex py-10 md:py-24">
+                {!isError ? (
+                    <DuoTable
+                        orderBookData={(orderBookData as OrderBookData[]) || []}
+                        refetch={refetch}
+                        showDetails={true}
+                    />
+                ) : (
+                    <ErrorDisplay refetch={refetch} />
+                )}
+            </div>
         </>
     );
 }
