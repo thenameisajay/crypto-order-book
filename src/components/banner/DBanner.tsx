@@ -37,7 +37,7 @@ export default function DevelopmentBanner() {
             setIsDismissed(false);
             setStateTime(nowTime.toISOString());
         }
-    }, [isDismissed, stateTime]);
+    }, [isDismissed, setIsDismissed, setStateTime, stateTime]);
 
     const handleDismiss = () => {
         setIsDismissed(true);

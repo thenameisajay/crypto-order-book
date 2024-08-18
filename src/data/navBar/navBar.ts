@@ -11,8 +11,8 @@ export const navConfig: navConfig = {
             href: '/',
         },
         {
-            title: 'Stock Ticker',
-            href: '/stock-ticker',
+            title: 'Ticker',
+            href: '/ticker',
         },
         {
             title: 'Watchlist',
